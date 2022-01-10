@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff00"
+    tools:context=".UserLogin">
+
+    <TextView
+        android:id="@+id/textTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:text="ログイン"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <LinearLayout
+        android:layout_width="322dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="92dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/errorDisplay"
+            android:layout_width="match_parent"
+            android:layout_height="23dp"
+            android:layout_marginTop="50dp"
+            android:text="ユーザ名とパスワードが一致しません"
+            android:textColor="#ff0000"
+            android:visibility="invisible" />
+
+        <EditText
+            android:id="@+id/textBoxUserName"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="5dp"
+            android:background="#efefef"
+            android:ems="10"
+            android:hint="ユーザーネーム"
+            android:inputType="textPersonName"
+            android:textColor="#444444"
+            android:textColorHint="#777777" />
+
+        <EditText
+            android:id="@+id/textBoxPassword"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="80dp"
+            android:background="#efefef"
+            android:baselineAligned="false"
+            android:ems="10"
+            android:hint="パスワード"
+            android:inputType="textPassword"
+            android:textColor="#444444"
+            android:textColorHint="#777777" />
+
+        <Button
+            android:id="@+id/buttonLogin"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="60dp"
+            android:backgroundTint="#efefef"
+            android:text="ログイン"
+            android:textColor="#555555" />
+
+        <Button
+            android:id="@+id/buttonCreateAccount"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="#efefef"
+            android:text="アカウント登録はこちら"
+            android:textColor="#555555"
+            android:textSize="10dp" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
