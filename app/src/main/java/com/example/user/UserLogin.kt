@@ -2,6 +2,7 @@ package com.example.user
 
 import android.app.Activity
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -97,6 +98,8 @@ class LoginWsClient(private val activity: Activity, uri: URI) : WsClient(uri){
                 this.close(NORMAL_CLOSURE)
                 activity.runOnUiThread{
                     val intent = Intent(activity, User::class.java)
+                    intent.putExtra("token", token)
+                    intent.putExtra("expire", expire)
                     activity.startActivity(intent)
                 }
 
