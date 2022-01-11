@@ -1,17 +1,12 @@
 package com.example.user
 
-import android.content.Context
-import android.net.ConnectivityManager
 import android.util.Log
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import org.java_websocket.client.WebSocketClient
 import org.java_websocket.handshake.ServerHandshake
 import java.lang.Exception
 import java.net.URI
 import java.util.*
 import kotlin.concurrent.schedule
-import java.security.AccessController.getContext
 
 
 open class WsClient(uri: URI) : WebSocketClient(uri) {
