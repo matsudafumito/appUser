@@ -110,9 +110,10 @@ class RegisterWsClient(private val activity: Activity, uri: URI) : WsClient(uri)
                 intent.putExtra("message", message)
                 intent.putExtra("transitionBtnMessage", transitionBtnMessage)
                 intent.putExtra("isBeforeLogin", isBeforeLogin)
-                activity.runOnUiThread{
-                    activity.startActivity(intent)
-                }
+
+                activity.startActivity(intent)
+                activity.finish()
+                this.close(NORMAL_CLOSURE)
 
                 //when error occurred with registration
             }else if(status == "error"){
