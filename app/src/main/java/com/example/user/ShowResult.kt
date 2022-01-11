@@ -32,6 +32,7 @@ class ShowResult : AppCompatActivity() {
                 Intent(this@ShowResult, User::class.java)
             }
             startActivity(intent)
+            finish()
         }
 
     }

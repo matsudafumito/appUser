@@ -8,6 +8,7 @@ import java.net.URI
 import java.util.*
 import kotlin.concurrent.schedule
 
+
 open class WsClient(uri: URI) : WebSocketClient(uri) {
     companion object{
         /**
@@ -78,9 +79,8 @@ open class WsClient(uri: URI) : WebSocketClient(uri) {
     override fun onClose(code: Int, reason: String?, remote: Boolean) {
         Log.i(javaClass.simpleName, "connection closed")
         Log.i(javaClass.simpleName, "executing on ${Thread.currentThread()}")
-        if(code != NORMAL_CLOSURE){
-            Log.i(javaClass.simpleName, "trying to reconnect")
-            this.reconnect()
+        if(code != NORMAL_CLOSURE) {
+            Log.i(javaClass.simpleName, "connection closed illegally")
         }else{
             Log.i(javaClass.simpleName, "connection closed successfully")
         }

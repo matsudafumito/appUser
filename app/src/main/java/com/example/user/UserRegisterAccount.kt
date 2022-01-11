@@ -68,7 +68,19 @@ class UserRegisterAccount : AppCompatActivity() {
 
             Log.i(javaClass.simpleName, "send register req")
             Log.i(javaClass.simpleName, registerRequest.toString())
-            client.send(registerRequest.toString())
+
+            try{
+                if(client.isClosed) {
+                    client.reconnect()
+                }
+                client.send(registerRequest.toString())
+            } catch (ex: Exception){
+                Log.i(javaClass.simpleName, "send failed $ex")
+                errorDisplay.visibility = View.VISIBLE
+                errorDisplay.text = "インターネットに接続されていません"
+            }
+
+
         }
     }
 
