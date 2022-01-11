@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import org.json.JSONObject
+import org.w3c.dom.Text
 import java.net.URI
 
 class UserLogin : AppCompatActivity() {
@@ -34,6 +35,7 @@ class UserLogin : AppCompatActivity() {
         //edit text, name and password
         val eTxtUserName: EditText = findViewById(R.id.textBoxUserName)
         val eTxtPassword: EditText = findViewById(R.id.textBoxPassword)
+        val errorDisplay: TextView = findViewById(R.id.errorDisplay)
 
         val buttonLogin: Button = findViewById(R.id.buttonLogin)
         val buttonCreateAcc: Button = findViewById(R.id.buttonCreateAccount)
@@ -55,7 +57,17 @@ class UserLogin : AppCompatActivity() {
             loginRequest.put("params", loginParams)
             Log.i(javaClass.simpleName, "send login req")
             Log.i(javaClass.simpleName, loginRequest.toString())
-            client.send(loginRequest.toString())
+
+            try{
+                if(client.isClosed) {
+                    client.reconnect()
+                }
+                client.send(loginRequest.toString())
+            } catch (ex: Exception){
+                Log.i(javaClass.simpleName, "send failed $ex")
+                errorDisplay.visibility = View.VISIBLE
+                errorDisplay.text = "インターネットに接続されていません"
+            }
         }
 
         buttonCreateAcc.setOnClickListener {

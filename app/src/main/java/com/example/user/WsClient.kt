@@ -1,12 +1,18 @@
 package com.example.user
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.util.Log
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import org.java_websocket.client.WebSocketClient
 import org.java_websocket.handshake.ServerHandshake
 import java.lang.Exception
 import java.net.URI
 import java.util.*
 import kotlin.concurrent.schedule
+import java.security.AccessController.getContext
+
 
 open class WsClient(uri: URI) : WebSocketClient(uri) {
     companion object{
@@ -78,9 +84,8 @@ open class WsClient(uri: URI) : WebSocketClient(uri) {
     override fun onClose(code: Int, reason: String?, remote: Boolean) {
         Log.i(javaClass.simpleName, "connection closed")
         Log.i(javaClass.simpleName, "executing on ${Thread.currentThread()}")
-        if(code != NORMAL_CLOSURE){
-            Log.i(javaClass.simpleName, "trying to reconnect")
-            this.reconnect()
+        if(code != NORMAL_CLOSURE) {
+            Log.i(javaClass.simpleName, "connection closed illegally")
         }else{
             Log.i(javaClass.simpleName, "connection closed successfully")
         }

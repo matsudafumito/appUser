@@ -64,7 +64,24 @@ class User : AppCompatActivity() {
             logoutRequest.put("method", "logout")
             logoutRequest.put("params", logoutParams)
 
-            client.send(logoutRequest.toString())
+            try{
+                if(client.isClosed) {
+                    client.reconnect()
+                }
+                client.send(logoutRequest.toString())
+            } catch (ex: Exception){
+                Log.i(javaClass.simpleName, "send failed $ex")
+                val intent = Intent(this@User, ShowResult::class.java)
+                val message = "ログアウトしました"
+                val transitionBtnMessage = "ログインページへ"
+                val isBeforeLogin = true
+                Log.i(javaClass.simpleName, "logout with no request")
+                intent.putExtra("message", message)
+                intent.putExtra("transitionBtnMessage", transitionBtnMessage)
+                intent.putExtra("isBeforeLogin", isBeforeLogin)
+                startActivity(intent)
+                finish()
+            }
         }
 
     }
