@@ -39,7 +39,6 @@ class UserLogin : AppCompatActivity() {
         val buttonCreateAcc: Button = findViewById(R.id.buttonCreateAccount)
 
         buttonLogin.setOnClickListener {
-            val loginRequest = JSONObject()
             val loginParams = JSONObject()
             val userName: String = eTxtUserName.text.toString()
             val password: String = eTxtPassword.text.toString()
@@ -49,10 +48,8 @@ class UserLogin : AppCompatActivity() {
             loginParams.put("password", password)
             loginParams.put("role", role)
 
-            loginRequest.put("jsonrpc", "2.0")
-            loginRequest.put("id", loginReqId)
-            loginRequest.put("method", "login")
-            loginRequest.put("params", loginParams)
+            val loginRequest = client.createJsonrpcReq("login", loginReqId, loginParams)
+
             Log.i(javaClass.simpleName, "send login req")
             Log.i(javaClass.simpleName, loginRequest.toString())
 

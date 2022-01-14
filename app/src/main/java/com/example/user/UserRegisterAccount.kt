@@ -38,7 +38,6 @@ class UserRegisterAccount : AppCompatActivity() {
         //when register button pushed
         val buttonRegister: Button = findViewById(R.id.buttonRegister)
         buttonRegister.setOnClickListener {
-            val registerRequest = JSONObject()
             val registerParams = JSONObject()
             val userName: String = eTxtUserName.text.toString()
             val password: String = eTxtPassword.text.toString()
@@ -59,12 +58,7 @@ class UserRegisterAccount : AppCompatActivity() {
 
             registerParams.put("user_name", userName)
             registerParams.put("password", password)
-
-            registerRequest.put("jsonrpc", "2.0")
-            registerRequest.put("id", registerReqId)
-            registerRequest.put("method", "register/user")
-
-            registerRequest.put("params", registerParams)
+            val registerRequest = client.createJsonrpcReq("register/user", registerReqId, registerParams)
 
             Log.i(javaClass.simpleName, "send register req")
             Log.i(javaClass.simpleName, registerRequest.toString())

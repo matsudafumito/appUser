@@ -3,6 +3,7 @@ package com.example.user
 import android.util.Log
 import org.java_websocket.client.WebSocketClient
 import org.java_websocket.handshake.ServerHandshake
+import org.json.JSONObject
 import java.lang.Exception
 import java.net.URI
 import java.util.*
@@ -104,5 +105,28 @@ open class WsClient(uri: URI) : WebSocketClient(uri) {
     override fun onMessage(message: String?) {
         Log.i(javaClass.simpleName, "message arrived")
         Log.i(javaClass.simpleName, "executing on ${Thread.currentThread()}")
+    }
+
+    /**
+     * create request message of JSON-RPC
+     * @return {JSONObject} - this is like
+     *      {
+     *          "jsonrpc": "2.0",
+     *          "method": "methodName",
+     *          "id": msgId,
+     *          "params":{
+     *              "key": "value",
+     *              "key2": "value2",
+     *              ...
+     *          }
+     *      }
+     */
+    fun createJsonrpcReq(methodName: String, msgId: Int, params: JSONObject): JSONObject {
+        var wholeMsg = JSONObject()
+        wholeMsg.put("jsonrpc", "2.0")
+        wholeMsg.put("method", methodName)
+        wholeMsg.put("id", msgId)
+        wholeMsg.put("params", params)
+        return wholeMsg
     }
 }

@@ -51,15 +51,9 @@ class User : AppCompatActivity() {
         }
 
         buttonLogout.setOnClickListener {
-            val logoutRequest = JSONObject()
             val logoutParams = JSONObject()
-
             logoutParams.put("token", token)
-
-            logoutRequest.put("jsonrpc", "2.0")
-            logoutRequest.put("id", logoutReqId)
-            logoutRequest.put("method", "logout")
-            logoutRequest.put("params", logoutParams)
+            val logoutRequest = client.createJsonrpcReq("logout", logoutReqId, logoutParams)
 
             try{
                 if(client.isClosed) {
