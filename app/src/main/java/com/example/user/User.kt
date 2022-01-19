@@ -29,9 +29,11 @@ class User : AppCompatActivity() {
 
         val token = intent.getStringExtra("token")
         val tokenExpiry = intent.getStringExtra("expire")
+        val userName = intent.getStringExtra("userName")
 
         Log.i(javaClass.simpleName, "token recved $token")
         Log.i(javaClass.simpleName, "token expiry $tokenExpiry")
+        Log.i(javaClass.simpleName, "userName: $userName")
 
         val buttonToHome: Button = findViewById(R.id.buttonHome)
         val buttonToSearchRestaurant: Button = findViewById(R.id.buttonSearchRestaurant)
@@ -47,7 +49,11 @@ class User : AppCompatActivity() {
         }
 
         buttonToSetting.setOnClickListener {
-            TODO("not yet implemented")
+            val intent = Intent(this@User, UserShowAccountInfo::class.java)
+            intent.putExtra("userName", userName)
+            intent.putExtra("token", token)
+            startActivity(intent)
+            client.close(WsClient.NORMAL_CLOSURE)
         }
 
         buttonLogout.setOnClickListener {

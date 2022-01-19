@@ -16,6 +16,7 @@ class UserLogin : AppCompatActivity() {
 
     companion object{
         const val loginReqId: Int = 1
+        var loginUserName: String = ""
     }
 
     private val uri = WsClient.serverRemote
@@ -43,6 +44,7 @@ class UserLogin : AppCompatActivity() {
             val userName: String = eTxtUserName.text.toString()
             val password: String = eTxtPassword.text.toString()
             val role = "user"
+            loginUserName = userName
 
             loginParams.put("user_name", userName)
             loginParams.put("password", password)
@@ -107,6 +109,7 @@ class LoginWsClient(private val activity: Activity, uri: URI) : WsClient(uri){
                     val intent = Intent(activity, User::class.java)
                     intent.putExtra("token", token)
                     intent.putExtra("expire", expire)
+                    intent.putExtra("userName", UserLogin.loginUserName)
                     activity.startActivity(intent)
                 }
 
