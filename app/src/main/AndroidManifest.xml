@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.User">
         <activity
+            android:name=".UserChangeAccountInfo"
+            android:exported="false" />
+        <activity
             android:name=".UserShowAccountInfo"
             android:exported="false" />
         <activity

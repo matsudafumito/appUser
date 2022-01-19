@@ -60,18 +60,25 @@ class UserShowAccountInfo : AppCompatActivity() {
                 Log.i(javaClass.simpleName, "$ex")
             }
             // if msg arrived
-            if(client.userId != -1){
+            if(client.isReceived){
                 errorDisplay.visibility = View.INVISIBLE
                 this.cancel()
             }
         }
 
         buttonChangeAccountInfo.setOnClickListener {
-            if(client.userId == -1){
-                return@setOnClickListener
+            if(client.isReceived){
+                val intent = Intent(this@UserShowAccountInfo, UserChangeAccountInfo::class.java)
+                intent.putExtra("userId", client.userId)
+                intent.putExtra("userName", client.userName)
+                intent.putExtra("birthday", client.birthday)
+                intent.putExtra("gender", client.gender)
+                intent.putExtra("emailAddr", client.emailAddr)
+                intent.putExtra("address", client.address)
+                startActivity(intent)
+                client.close(WsClient.NORMAL_CLOSURE)
             }else{
-                TODO("ADD INTENT")
-
+                return@setOnClickListener
             }
         }
     }
@@ -91,6 +98,7 @@ class GetUserInfoWsClient(private val activity: Activity, uri: URI) : WsClient(u
     var gender = ""
     var emailAddr = ""
     var address = ""
+    var isReceived = false
 
     private val errorDisplay: TextView by lazy { activity.findViewById(R.id.errorDisplay) }
     private val txtUserName: TextView by lazy { activity.findViewById(R.id.textBoxUserName) }
@@ -110,6 +118,7 @@ class GetUserInfoWsClient(private val activity: Activity, uri: URI) : WsClient(u
         val status: String = result.getString("status")
 
         if(resId == UserShowAccountInfo.getUserInfoId){
+            this.isReceived = true
             if(status == "success"){
                 this.userId = result.getInt("user_id")
                 this.userName = result.getString("user_name")
@@ -125,12 +134,12 @@ class GetUserInfoWsClient(private val activity: Activity, uri: URI) : WsClient(u
                     txtEmail.text = this.emailAddr
                     txtAddress.text = this.address
                 }
-
+            }else if(status == "error"){
+                activity.runOnUiThread{
+                    errorDisplay.text = "アカウント情報を取得できません"
+                    errorDisplay.visibility = View.INVISIBLE
+                }
             }
-
         }
-
     }
-
-
 }
