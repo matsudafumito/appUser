@@ -75,6 +75,7 @@ class UserShowAccountInfo : AppCompatActivity() {
                 intent.putExtra("gender", client.gender)
                 intent.putExtra("emailAddr", client.emailAddr)
                 intent.putExtra("address", client.address)
+                intent.putExtra("token", token)
                 startActivity(intent)
                 client.close(WsClient.NORMAL_CLOSURE)
             }else{
