@@ -10,6 +10,12 @@ import org.json.JSONObject
 import java.net.URI
 
 class User : AppCompatActivity() {
+    private var user_id: Int = -1
+    private var user_name: String = ""
+    private var birthday: String = ""
+    private var gender: String = ""
+    private var email_addr: String = ""
+    private var address: String = ""
 
     companion object {
         const val logoutReqId: Int = 3
@@ -24,22 +30,39 @@ class User : AppCompatActivity() {
         setContentView(R.layout.activity_user)
     }
 
-    fun sendReqGetUserInfoByName(token: String, clientName: String, client: UserTopWsClient){
-        val params = JSONObject()
-        params.put("searchBy", "user_name")
-        params.put("user_name", clientName)
-        params.put("token", token)
-        val request = client.createJsonrpcReq("getInfo/user/basic", getUserInfoId, params)
-        client.send(request.toString())
+    /**
+     * this method will fetch data about user information e.g. user_id, birthday etc
+     * this method will not concern the client data is arrived or not
+     */
+    private fun fetchClientInfo(client: UserTopWsClient){
+        this.user_id = client.user_id
+        this.user_name = client.user_name
+        this.birthday = client.birthday
+        this.gender = client.gender
+        this.email_addr = client.email_addr
+        this.address = client.address
     }
 
     override fun onResume() {
         super.onResume()
         client.connect()
 
-        val token = intent.getStringExtra("token")
+
+        val token = intent.getStringExtra("token")!!
         val tokenExpiry = intent.getStringExtra("expire")
         val userName = intent.getStringExtra("userName")
+        this.user_name = userName!!
+
+        val getUserInfo = Runnable {
+            while (!client.isOpen){
+                //do nothing
+                //wait until websocket open
+            }
+            //the connection openings is guaranteed -> attach no error handler
+            client.sendReqGetUserInfoByName(token, this.user_name)
+            return@Runnable
+        }
+        Thread( getUserInfo ).start()
 
         Log.i(javaClass.simpleName, "token recved $token")
         Log.i(javaClass.simpleName, "token expiry $tokenExpiry")
@@ -54,11 +77,27 @@ class User : AppCompatActivity() {
 
 
         buttonToCurrentReservations.setOnClickListener {
-
+            if(client.isUserInfoArrived()){
+                this.fetchClientInfo(client)
+                val intent = Intent(this@User, UserShowCurrentReservations::class.java)
+                intent.putExtra("token", token)
+                intent.putExtra("user_id", this.user_id)
+                startActivity(intent)
+            }else{
+                Log.i(javaClass.simpleName, "data has not arrived yet")
+            }
         }
 
         buttonToCurrentEvaluations.setOnClickListener {
-
+            if(client.isUserInfoArrived()){
+                this.fetchClientInfo(client)
+                val intent = Intent(this@User, UserShowCurrentEvaluations::class.java)
+                intent.putExtra("token", token)
+                intent.putExtra("user_id", this.user_id)
+                startActivity(intent)
+            }else{
+                Log.i(javaClass.simpleName, "data has not arrived yet")
+            }
         }
 
         buttonToHome.setOnClickListener {
@@ -125,6 +164,19 @@ class UserTopWsClient(private val activity: Activity, uri: URI) : WsClient(uri){
             return false
         }
         return true
+    }
+
+    /**
+     * this method will send request about getting user information
+     */
+    fun sendReqGetUserInfoByName(token: String, clientName: String){
+        Log.i(javaClass.simpleName, "send request to get user information")
+        val params = JSONObject()
+        params.put("searchBy", "user_name")
+        params.put("user_name", clientName)
+        params.put("token", token)
+        val request = this.createJsonrpcReq("getInfo/user/basic", User.getUserInfoId, params)
+        this.send(request.toString())
     }
 
     override fun onMessage(message: String?) {
