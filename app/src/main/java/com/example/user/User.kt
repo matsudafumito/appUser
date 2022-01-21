@@ -83,6 +83,7 @@ class User : AppCompatActivity() {
                 intent.putExtra("token", token)
                 intent.putExtra("user_id", this.user_id)
                 startActivity(intent)
+                client.close(WsClient.NORMAL_CLOSURE)
             }else{
                 Log.i(javaClass.simpleName, "data has not arrived yet")
             }
@@ -95,6 +96,7 @@ class User : AppCompatActivity() {
                 intent.putExtra("token", token)
                 intent.putExtra("user_id", this.user_id)
                 startActivity(intent)
+                client.close(WsClient.NORMAL_CLOSURE)
             }else{
                 Log.i(javaClass.simpleName, "data has not arrived yet")
             }

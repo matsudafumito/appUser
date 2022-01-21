@@ -75,8 +75,8 @@ class UserShowAccountInfo : AppCompatActivity() {
                 intent.putExtra("emailAddr", client.emailAddr)
                 intent.putExtra("address", client.address)
                 intent.putExtra("token", token)
-                startActivity(intent)
                 client.close(WsClient.NORMAL_CLOSURE)
+                startActivity(intent)
             }else{
                 return@setOnClickListener
             }
@@ -88,6 +88,10 @@ class UserShowAccountInfo : AppCompatActivity() {
         client = GetUserInfoWsClient(this, uri)
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        client.close(WsClient.NORMAL_CLOSURE)
+    }
 
 }
 
