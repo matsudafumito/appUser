@@ -77,4 +77,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <LinearLayout
+        android:layout_width="409dp"
+        android:layout_height="608dp"
+        android:layout_marginTop="62dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/buttonShowCurrentReservations"
+            android:layout_width="300dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="200dp"
+            android:layout_height="60dp"
+            android:backgroundTint="#eb4242"
+            android:text="現在の予約" />
+
+        <Button
+            android:id="@+id/buttonShowCurrentEvaluations"
+            android:layout_width="300dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:layout_height="60dp"
+            android:backgroundTint="#eb4242"
+            android:text="投稿した食べログ" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
