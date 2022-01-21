@@ -45,6 +45,7 @@ class UserChangeAccountInfo : AppCompatActivity() {
         val etxtUserEmail: EditText = findViewById(R.id.textBoxUserEmail)
         val etxtUserAddress: EditText = findViewById(R.id.textBoxUserAddress)
         val buttonSubmit: Button = findViewById(R.id.buttonSubmit)
+        val buttonResign: Button = findViewById(R.id.buttonResign)
         val errorDisplay: TextView = findViewById(R.id.errorDisplay)
 
         etxtUserName.setText(currentUserName)
@@ -78,6 +79,13 @@ class UserChangeAccountInfo : AppCompatActivity() {
                 errorDisplay.text = "インターネットに接続されていません"
                 errorDisplay.visibility = View.VISIBLE
             }
+        }
+
+        buttonResign.setOnClickListener {
+            val intent = Intent(this@UserChangeAccountInfo, UserWithdrawal::class.java)
+            intent.putExtra("token", token)
+            client.close(WsClient.NORMAL_CLOSURE)
+            startActivity(intent)
         }
     }
 }
