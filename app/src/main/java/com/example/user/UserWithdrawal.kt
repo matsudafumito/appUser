@@ -9,7 +9,6 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import androidx.activity.result.contract.ActivityResultContracts
 import kotlinx.android.synthetic.main.activity_user_withdrawal.*
 import org.json.JSONObject
 import java.lang.Exception
