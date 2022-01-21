@@ -13,6 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.User">
         <activity
+            android:name=".UserShowCurrentReservations"
+            android:exported="false" />
+        <activity
+            android:name=".UserShowCurrentEvaluations"
+            android:exported="false" />
+        <activity
             android:name=".UserWithdrawal"
             android:exported="false" />
         <activity

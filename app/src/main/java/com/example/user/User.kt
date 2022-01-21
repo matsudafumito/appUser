@@ -13,14 +13,24 @@ class User : AppCompatActivity() {
 
     companion object {
         const val logoutReqId: Int = 3
+        const val getUserInfoId: Int = 7
     }
 
     private val uri = WsClient.serverRemote
-    private var client = LogoutWsClient(this, uri)
+    private var client = UserTopWsClient(this, uri)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user)
+    }
+
+    fun sendReqGetUserInfoByName(token: String, clientName: String, client: UserTopWsClient){
+        val params = JSONObject()
+        params.put("searchBy", "user_name")
+        params.put("user_name", clientName)
+        params.put("token", token)
+        val request = client.createJsonrpcReq("getInfo/user/basic", getUserInfoId, params)
+        client.send(request.toString())
     }
 
     override fun onResume() {
@@ -39,6 +49,17 @@ class User : AppCompatActivity() {
         val buttonToSearchRestaurant: Button = findViewById(R.id.buttonSearchRestaurant)
         val buttonToSetting: Button = findViewById(R.id.buttonSetting)
         val buttonLogout: Button = findViewById(R.id.buttonLogout)
+        val buttonToCurrentReservations: Button = findViewById(R.id.buttonShowCurrentReservations)
+        val buttonToCurrentEvaluations: Button = findViewById(R.id.buttonShowCurrentEvaluations)
+
+
+        buttonToCurrentReservations.setOnClickListener {
+
+        }
+
+        buttonToCurrentEvaluations.setOnClickListener {
+
+        }
 
         buttonToHome.setOnClickListener {
             //doNothing
@@ -85,12 +106,26 @@ class User : AppCompatActivity() {
 
     override fun onRestart() {
         super.onRestart()
-        client = LogoutWsClient(this, uri)
+        client = UserTopWsClient(this, uri)
     }
 
 }
 
-class LogoutWsClient(private val activity: Activity, uri: URI) : WsClient(uri){
+class UserTopWsClient(private val activity: Activity, uri: URI) : WsClient(uri){
+
+    var user_id: Int = -1
+    var user_name: String = ""
+    var birthday: String = ""
+    var gender: String = ""
+    var email_addr: String = ""
+    var address: String = ""
+
+    fun isUserInfoArrived(): Boolean{
+        if(this.user_id == -1){
+            return false
+        }
+        return true
+    }
 
     override fun onMessage(message: String?) {
         super.onMessage(message)
@@ -125,7 +160,19 @@ class LogoutWsClient(private val activity: Activity, uri: URI) : WsClient(uri){
             activity.startActivity(intent)
             activity.finish()
             this.close(NORMAL_CLOSURE)
-        }
 
+        //if msg is about getInfo/user/basic
+        }else if(resId == User.getUserInfoId){
+            if(status == "success"){
+                this.user_id = result.getInt("user_id")
+                this.user_name = result.getString("user_name")
+                this.birthday = result.getString("birthday")
+                this.gender = result.getString("gender")
+                this.email_addr = result.getString("email_addr")
+                this.address = result.getString("address")
+            }else if(status == "error"){
+                Log.i(javaClass.simpleName, "getInfo failed")
+            }
+        }
     }
 }
