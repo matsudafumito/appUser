@@ -16,6 +16,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:text="アカウント情報確認"
+        android:textColor="#444444"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -44,7 +45,8 @@
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:text="ユーザネーム" />
+            android:text="ユーザネーム"
+            android:textColor="#444444" />
 
         <TextView
             android:id="@+id/textBoxUserName"
@@ -53,13 +55,15 @@
             android:backgroundTint="#efefef"
             android:background="#efefef"
             android:paddingTop="3dp"
-            android:textSize="15dp"/>
+            android:textSize="15dp"
+            android:textColor="#444444"/>
 
         <TextView
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:text="誕生日" />
+            android:text="誕生日"
+            android:textColor="#444444" />
 
         <TextView
             android:id="@+id/textBoxUserBirthday"
@@ -68,13 +72,15 @@
             android:backgroundTint="#efefef"
             android:background="#efefef"
             android:paddingTop="3dp"
-            android:textSize="15dp" />
+            android:textSize="15dp"
+            android:textColor="#444444" />
 
         <TextView
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:text="性別" />
+            android:text="性別"
+            android:textColor="#444444" />
 
         <TextView
             android:id="@+id/textBoxUserGender"
@@ -83,13 +89,15 @@
             android:backgroundTint="#efefef"
             android:background="#efefef"
             android:paddingTop="3dp"
-            android:textSize="15dp" />
+            android:textSize="15dp"
+            android:textColor="#444444"/>
 
         <TextView
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:text="メールアドレス" />
+            android:text="メールアドレス"
+            android:textColor="#444444" />
 
         <TextView
             android:id="@+id/textBoxUserEmail"
@@ -98,13 +106,15 @@
             android:backgroundTint="#efefef"
             android:background="#efefef"
             android:paddingTop="3dp"
-            android:textSize="15dp" />
+            android:textSize="15dp"
+            android:textColor="#444444" />
 
         <TextView
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:text="住所" />
+            android:text="住所"
+            android:textColor="#444444" />
 
         <TextView
             android:id="@+id/textBoxUserAddress"
@@ -113,7 +123,8 @@
             android:backgroundTint="#efefef"
             android:background="#efefef"
             android:paddingTop="3dp"
-            android:textSize="15dp"/>
+            android:textSize="15dp"
+            android:textColor="#444444"/>
 
         <Button
             android:id="@+id/buttonChangeAccountInfo"

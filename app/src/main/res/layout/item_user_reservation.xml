@@ -31,14 +31,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="店名"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"
+                    android:textColor="#444444" />
 
                 <TextView
                     android:id="@+id/reservation_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="00:00 - 00:00"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"
+                    android:textColor="#444444" />
             </LinearLayout>
 
         </RelativeLayout>

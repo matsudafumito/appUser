@@ -15,6 +15,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="28dp"
         android:text="予約確認"
+        android:textColor="#444444"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
