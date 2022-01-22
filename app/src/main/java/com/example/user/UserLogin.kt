@@ -107,9 +107,9 @@ class LoginWsClient(private val activity: Activity, uri: URI) : WsClient(uri){
                 this.close(NORMAL_CLOSURE)
                 activity.runOnUiThread{
                     val intent = Intent(activity, User::class.java)
-                    intent.putExtra("token", token)
-                    intent.putExtra("expire", expire)
-                    intent.putExtra("userName", UserLogin.loginUserName)
+                    User.globalToken = token
+                    User.globalUserName = UserLogin.loginUserName
+                    User.globalTokenExpiry = expire
                     activity.startActivity(intent)
                 }
 

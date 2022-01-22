@@ -20,6 +20,10 @@ class User : AppCompatActivity() {
     companion object {
         const val logoutReqId: Int = 3
         const val getUserInfoId: Int = 7
+        var globalToken = ""
+        var globalUserId = -1
+        var globalUserName = ""
+        var globalTokenExpiry = ""
     }
 
     private val uri = WsClient.serverRemote
@@ -47,26 +51,20 @@ class User : AppCompatActivity() {
         super.onResume()
         client.connect()
 
-
-        val token = intent.getStringExtra("token")!!
-        val tokenExpiry = intent.getStringExtra("expire")
-        val userName = intent.getStringExtra("userName")
-        this.user_name = userName!!
-
         val getUserInfo = Runnable {
             while (!client.isOpen){
                 //do nothing
                 //wait until websocket open
             }
             //the connection openings is guaranteed -> attach no error handler
-            client.sendReqGetUserInfoByName(token, this.user_name)
+            client.sendReqGetUserInfoByName(User.globalToken, this.user_name)
             return@Runnable
         }
         Thread( getUserInfo ).start()
 
-        Log.i(javaClass.simpleName, "token recved $token")
-        Log.i(javaClass.simpleName, "token expiry $tokenExpiry")
-        Log.i(javaClass.simpleName, "userName: $userName")
+        Log.i(javaClass.simpleName, "token recved ${User.globalToken}")
+        Log.i(javaClass.simpleName, "token expiry ${User.globalTokenExpiry}")
+        Log.i(javaClass.simpleName, "userName: ${User.globalUserName}")
 
         val buttonToHome: Button = findViewById(R.id.buttonHome)
         val buttonToSearchRestaurant: Button = findViewById(R.id.buttonSearchRestaurant)
@@ -80,7 +78,7 @@ class User : AppCompatActivity() {
             if(client.isUserInfoArrived()){
                 this.fetchClientInfo(client)
                 val intent = Intent(this@User, UserShowCurrentReservations::class.java)
-                intent.putExtra("token", token)
+                intent.putExtra("token", User.globalToken)
                 intent.putExtra("user_id", this.user_id)
                 startActivity(intent)
                 client.close(WsClient.NORMAL_CLOSURE)
@@ -93,8 +91,6 @@ class User : AppCompatActivity() {
             if(client.isUserInfoArrived()){
                 this.fetchClientInfo(client)
                 val intent = Intent(this@User, UserShowCurrentEvaluations::class.java)
-                intent.putExtra("token", token)
-                intent.putExtra("user_id", this.user_id)
                 startActivity(intent)
                 client.close(WsClient.NORMAL_CLOSURE)
             }else{
@@ -112,15 +108,15 @@ class User : AppCompatActivity() {
 
         buttonToSetting.setOnClickListener {
             val intent = Intent(this@User, UserShowAccountInfo::class.java)
-            intent.putExtra("userName", userName)
-            intent.putExtra("token", token)
-            startActivity(intent)
+            intent.putExtra("userName", User.globalUserName)
+            intent.putExtra("token", User.globalToken)
             client.close(WsClient.NORMAL_CLOSURE)
+            startActivity(intent)
         }
 
         buttonLogout.setOnClickListener {
             val logoutParams = JSONObject()
-            logoutParams.put("token", token)
+            logoutParams.put("token", User.globalToken)
             val logoutRequest = client.createJsonrpcReq("logout", logoutReqId, logoutParams)
 
             try{
@@ -175,8 +171,8 @@ class UserTopWsClient(private val activity: Activity, uri: URI) : WsClient(uri){
         Log.i(javaClass.simpleName, "send request to get user information")
         val params = JSONObject()
         params.put("searchBy", "user_name")
-        params.put("user_name", clientName)
-        params.put("token", token)
+        params.put("user_name", User.globalUserName)
+        params.put("token", User.globalToken)
         val request = this.createJsonrpcReq("getInfo/user/basic", User.getUserInfoId, params)
         this.send(request.toString())
     }
@@ -224,6 +220,8 @@ class UserTopWsClient(private val activity: Activity, uri: URI) : WsClient(uri){
                 this.gender = result.getString("gender")
                 this.email_addr = result.getString("email_addr")
                 this.address = result.getString("address")
+                User.globalUserId = result.getInt("user_id")
+
             }else if(status == "error"){
                 Log.i(javaClass.simpleName, "getInfo failed")
             }

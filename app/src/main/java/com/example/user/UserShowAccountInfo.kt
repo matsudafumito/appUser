@@ -35,8 +35,8 @@ class UserShowAccountInfo : AppCompatActivity() {
         val errorDisplay: TextView = findViewById(R.id.errorDisplay)
         val buttonChangeAccountInfo: Button = findViewById(R.id.buttonChangeAccountInfo)
 
-        val token = intent.getStringExtra("token")
-        val userName = intent.getStringExtra("userName")
+        val token = User.globalToken
+        val userName = User.globalUserName
 
         val getInfoParams = JSONObject()
         getInfoParams.put("searchBy", "user_name")

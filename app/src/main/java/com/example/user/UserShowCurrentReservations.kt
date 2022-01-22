@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.TextView
 import org.java_websocket.handshake.ServerHandshake
@@ -28,15 +27,14 @@ class UserShowCurrentReservations : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        val token = intent.getStringExtra("token")!!
-        val user_id = intent.getIntExtra("user_id", -1)
+        val token = User.globalToken
+        val userId = User.globalUserId
+        val userName = User.globalUserName
         Log.i(javaClass.simpleName, "token: $token")
-        Log.i(javaClass.simpleName, "user_id: $user_id")
+        Log.i(javaClass.simpleName, "user_id: $userId")
         val uri = WsClient.serverRemote
-        var client = ReservationWsClient(this, uri, user_id, token)
+        var client = ReservationWsClient(this, uri, userId, token)
         client.connect()
-
-
     }
 }
 
@@ -50,6 +48,8 @@ class ReservationWsClient(private val activity: Activity,
     val reservationTimeStartList = mutableListOf<Int>()
     val reservationTimeEndList = mutableListOf<Int>()
     val reservationIdsList = mutableListOf<Int>()
+    val reservationNumPeopleList = mutableListOf<Int>()
+
     var isAllDone = false
     var idx = 0
 
@@ -136,6 +136,7 @@ class ReservationWsClient(private val activity: Activity,
                     this.reservationTimeStartList.add(reservation.getInt("time_start"))
                     this.reservationTimeEndList.add(reservation.getInt("time_end"))
                     this.reservationIdsList.add(reservation.getInt("reservation_id"))
+                    this.reservationNumPeopleList.add(reservation.getInt("num_people"))
                 }
                 this.sendReqGetRestaurantInfos(this.reservedRestaurantIds)
 
@@ -154,7 +155,9 @@ class ReservationWsClient(private val activity: Activity,
                 val restaurantId = result.getInt("restaurant_id")
                 val restaurantName = result.getString("restaurant_name")
                 val reservation = Reservation(this.reservedRestaurantIds[idx], restaurantName,
-                    this.reservationTimeStartList[idx], this.reservationTimeEndList[idx], this.reservationIdsList[idx])
+                    this.reservationTimeStartList[idx], this.reservationTimeEndList[idx], this.reservationIdsList[idx],
+                    this.reservationNumPeopleList[idx])
+
                 this.ReservationList.add(reservation)
 
                 Log.i(javaClass.simpleName, "rsrv: $idx / ${this.reservedRestaurantIds.size-1}")
@@ -162,6 +165,7 @@ class ReservationWsClient(private val activity: Activity,
                 Log.i(javaClass.simpleName, "restaurant_id: ${this.ReservationList[idx].restaurantId}")
                 Log.i(javaClass.simpleName, "time_start: ${this.ReservationList[idx].reservationTime_start}")
                 Log.i(javaClass.simpleName, "time_end: ${this.ReservationList[idx].reservationTime_end}")
+                Log.i(javaClass.simpleName, "num_people: ${this.ReservationList[idx].numPeople}")
 
                 idx++
                 //if index reached last, display reservations
@@ -170,6 +174,8 @@ class ReservationWsClient(private val activity: Activity,
                         var listView: ListView = activity.findViewById(R.id.reservationListView)
                         val adapter = ReservationListAdapter(activity, this.ReservationList)
                         listView.adapter = adapter
+                        //if all information arrived, close connection here
+                        this.close(NORMAL_CLOSURE)
                     }
                     idx = 0
                 }

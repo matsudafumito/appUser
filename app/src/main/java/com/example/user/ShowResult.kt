@@ -21,19 +21,6 @@ class ShowResult : AppCompatActivity() {
         val transitionBtnMessage = intent.getStringExtra("transitionBtnMessage")
         val isBeforeLogin = intent.getBooleanExtra("isBeforeLogin", true)
 
-        var token: String = ""
-        try{
-            token = intent.getStringExtra("token")!!
-        }catch (ex: Exception){
-            Log.i(javaClass.simpleName, "no token available")
-        }
-
-        var userName: String = ""
-        try {
-            userName = intent.getStringExtra("userName")!!
-        }catch (ex: Exception){
-            Log.i(javaClass.simpleName, "no user name available")
-        }
 
         val txtMessage: TextView = findViewById(R.id.message)
         val transitionBtn: Button = findViewById(R.id.transitionButton)
@@ -47,8 +34,6 @@ class ShowResult : AppCompatActivity() {
             }else{
                 Intent(this@ShowResult, User::class.java)
             }
-            intent.putExtra("token", token)
-            intent.putExtra("userName", userName)
 
             startActivity(intent)
             finish()

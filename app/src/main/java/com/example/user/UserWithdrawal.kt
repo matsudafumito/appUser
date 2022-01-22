@@ -31,7 +31,7 @@ class UserWithdrawal : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         client.connect()
-        val token = intent.getStringExtra("token")
+        val token = User.globalToken
         val etxtPassoword:EditText = findViewById(R.id.textBoxPassword)
         val buttonResign: Button = findViewById(R.id.buttonSubmit)
 
@@ -53,6 +53,11 @@ class UserWithdrawal : AppCompatActivity() {
                 errorDisplay.visibility = View.VISIBLE
             }
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        client.close(WsClient.NORMAL_CLOSURE)
     }
 }
 
