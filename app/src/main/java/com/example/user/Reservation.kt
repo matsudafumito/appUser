@@ -42,6 +42,8 @@ class ReservationListAdapter(val context: Context, val reservationList: MutableL
             intent.putExtra("restaurant_name", reservation.restaurantName)
             intent.putExtra("time_start", reservation.reservationTime_start)
             intent.putExtra("time_end", reservation.reservationTime_end)
+            intent.putExtra("format_time_start", startDateTime)
+            intent.putExtra("format_time_end", endDateTime)
             intent.putExtra("num_people", reservation.numPeople)
             context.startActivity(intent)
         }

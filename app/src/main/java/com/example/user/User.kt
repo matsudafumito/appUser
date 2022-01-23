@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import org.java_websocket.handshake.ServerHandshake
 import org.json.JSONObject
 import java.net.URI
 
@@ -175,6 +176,11 @@ class UserTopWsClient(private val activity: Activity, uri: URI) : WsClient(uri){
         params.put("token", User.globalToken)
         val request = this.createJsonrpcReq("getInfo/user/basic", User.getUserInfoId, params)
         this.send(request.toString())
+    }
+
+    override fun onOpen(handshakedata: ServerHandshake?) {
+        super.onOpen(handshakedata)
+        this.sendReqGetUserInfoByName(User.globalToken, User.globalUserName)
     }
 
     override fun onMessage(message: String?) {
