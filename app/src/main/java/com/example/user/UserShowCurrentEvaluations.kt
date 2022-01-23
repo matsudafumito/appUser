@@ -12,8 +12,8 @@ class UserShowCurrentEvaluations : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        val token = intent.getStringExtra("token")
-        val user_id = intent.getIntExtra("user_id", -1)
+        val token = User.globalToken
+        val user_id = User.globalUserId
         Log.i(javaClass.simpleName, "token: $token")
         Log.i(javaClass.simpleName, "user_id: $user_id")
     }

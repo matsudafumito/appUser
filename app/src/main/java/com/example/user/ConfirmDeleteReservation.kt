@@ -7,46 +7,45 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
-import kotlinx.android.synthetic.main.activity_user_withdrawal.*
 import org.json.JSONObject
-import java.lang.Exception
 import java.net.URI
 
-class UserWithdrawal : AppCompatActivity() {
+class ConfirmDeleteReservation : AppCompatActivity() {
 
     companion object{
-        const val userResignReqId = 6
+        const val deleteReservationReqId = 9
     }
 
     private val uri = WsClient.serverRemote
-    private val client = UserResignWsClient(this, uri)
+    private val client = DeleteReservationWsClient(this, uri)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_user_withdrawal)
+        setContentView(R.layout.activity_confirm_delete_reservation)
     }
 
     override fun onResume() {
         super.onResume()
         client.connect()
         val token = User.globalToken
-        val etxtPassoword:EditText = findViewById(R.id.textBoxPassword)
-        val buttonResign: Button = findViewById(R.id.buttonSubmit)
+        val reservationId = intent.getIntExtra("reservationId", -1)
 
-        buttonResign.setOnClickListener {
-            val resignParams = JSONObject()
-            resignParams.put("token", token)
-            resignParams.put("password", etxtPassoword.text.toString())
-            val resignReq = client.createJsonrpcReq("resign", userResignReqId, resignParams)
+        val errorDisplay: TextView = findViewById(R.id.errorDisplay)
+        val deleteButton: Button = findViewById(R.id.buttonDeleteReservation)
 
+        deleteButton.setOnClickListener {
+            val params = JSONObject()
+            params.put("token", token)
+            params.put("type", "delete")
+            params.put("reservation_id", reservationId)
+            val request = client.createJsonrpcReq("updateInfo/reservation", deleteReservationReqId, params)
             try {
-                if (client.isClosed) {
+                if(client.isClosed){
                     client.reconnect()
                 }
-                client.send(resignReq.toString())
-            } catch (ex: Exception) {
+                client.send(request.toString())
+            }catch (ex:Exception){
                 Log.i(javaClass.simpleName, "send failed")
                 Log.i(javaClass.simpleName, "$ex")
                 errorDisplay.text = "インターネットに接続されていません"
@@ -55,14 +54,14 @@ class UserWithdrawal : AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        client.close(WsClient.NORMAL_CLOSURE)
+    override fun onRestart() {
+        super.onRestart()
+        client.reconnect()
     }
 }
 
 
-class UserResignWsClient(private val activity: Activity, uri: URI) : WsClient(uri){
+class DeleteReservationWsClient(private val activity: Activity, uri: URI) : WsClient(uri){
 
     private val errorDisplay: TextView by lazy {
         activity.findViewById(R.id.errorDisplay)
@@ -78,18 +77,18 @@ class UserResignWsClient(private val activity: Activity, uri: URI) : WsClient(ur
         val result: JSONObject = wholeMsg.getJSONObject("result")
         val status: String = result.getString("status")
 
-        if (resId == UserWithdrawal.userResignReqId){
+        if(resId == ConfirmDeleteReservation.deleteReservationReqId){
             if(status == "success"){
                 val intent = Intent(activity, ShowResult::class.java)
-                intent.putExtra("message", "アカウント削除が完了しました")
-                intent.putExtra("transitionBtnMessage", "トップへ")
-                intent.putExtra("isBeforeLogin", true)
-                activity.startActivity(intent)
+                intent.putExtra("message", "予約を削除しました")
+                intent.putExtra("transitionBtnMessage", "ホームへ")
+                intent.putExtra("isBeforeLogin", false)
                 this.close(NORMAL_CLOSURE)
+                activity.startActivity(intent)
 
             }else if(status == "error"){
                 activity.runOnUiThread {
-                    errorDisplay.text = "パスワードが間違っています"
+                    errorDisplay.text = result.getString("reason")
                     errorDisplay.visibility = View.VISIBLE
                 }
             }

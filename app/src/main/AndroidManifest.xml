@@ -13,6 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.User">
         <activity
+            android:name=".ConfirmDeleteReservation"
+            android:exported="false" />
+        <activity
+            android:name=".UserShowReservationDetail"
+            android:exported="false" />
+        <activity
             android:name=".UserShowCurrentReservations"
             android:exported="false" />
         <activity

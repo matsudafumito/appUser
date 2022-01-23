@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/AndroidStudioProjects/appUser/app/src/main/res/layout-v21/activity_user.xml" value="0.25679347826086957" />
         <entry key="..\:/AndroidStudioProjects/appUser/app/src/main/res/layout-v21/activity_user_show_account_info.xml" value="0.4244791666666667" />
+        <entry key="..\:/AndroidStudioProjects/appUser/app/src/main/res/layout/activity_confirm_delete_reservation.xml" value="0.264" />
         <entry key="..\:/AndroidStudioProjects/appUser/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/AndroidStudioProjects/appUser/app/src/main/res/layout/activity_show_result.xml" value="0.3451086956521739" />
         <entry key="..\:/AndroidStudioProjects/appUser/app/src/main/res/layout/activity_user.xml" value="0.3451086956521739" />
@@ -14,7 +15,9 @@
         <entry key="..\:/AndroidStudioProjects/appUser/app/src/main/res/layout/activity_user_show_account_info.xml" value="0.1" />
         <entry key="..\:/AndroidStudioProjects/appUser/app/src/main/res/layout/activity_user_show_current_evaluations.xml" value="0.1" />
         <entry key="..\:/AndroidStudioProjects/appUser/app/src/main/res/layout/activity_user_show_current_reservations.xml" value="0.1" />
+        <entry key="..\:/AndroidStudioProjects/appUser/app/src/main/res/layout/activity_user_show_reservation_detail.xml" value="0.1" />
         <entry key="..\:/AndroidStudioProjects/appUser/app/src/main/res/layout/activity_user_withdrawal.xml" value="0.264" />
+        <entry key="..\:/AndroidStudioProjects/appUser/app/src/main/res/layout/item_user_reservation.xml" value="0.4" />
         <entry key="..\:/Users/NAKAJIMA/AndroidStudioProjects/appUser/app/src/main/res/layout/activity_main.xml" value="0.1461499493414387" />
         <entry key="..\:/Users/mf214/AndroidStudioProjects/user2/app/src/main/res/layout/activity_main.xml" value="0.24010416666666667" />
       </map>

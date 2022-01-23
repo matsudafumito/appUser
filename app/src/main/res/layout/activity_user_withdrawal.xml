@@ -17,7 +17,8 @@
         android:text="アカウント情報削除"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="#444444" />
 
     <LinearLayout
         android:layout_width="322dp"
@@ -42,13 +43,15 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="50dp"
+            android:textColor="#444444"
             android:text="パスワードを入力してアカウント削除ボタンを押すと，全ての情報が削除されます．" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:layout_marginTop="60dp"
-            android:text="パスワード" />
+            android:text="パスワード"
+            android:textColor="#444444" />
 
         <EditText
             android:id="@+id/textBoxPassword"
@@ -57,7 +60,8 @@
             android:background="#efefef"
             android:backgroundTint="#efefef"
             android:paddingTop="3dp"
-            android:textSize="15dp" />
+            android:textSize="15dp"
+            android:textColor="#444444" />
 
 
         <Button

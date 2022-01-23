@@ -16,8 +16,6 @@ import java.net.URI
 class UserChangeAccountInfo : AppCompatActivity() {
     companion object{
         const val changeUserInfoId: Int = 5
-        var token: String = ""
-        var userName: String = ""
     }
 
     private val uri = WsClient.serverRemote
@@ -37,7 +35,8 @@ class UserChangeAccountInfo : AppCompatActivity() {
         val currentGender = intent.getStringExtra("gender")
         val currentEmail = intent.getStringExtra("emailAddr")
         val currentAddress = intent.getStringExtra("address")
-        token = intent.getStringExtra("token")!!
+        val token = User.globalToken
+        var userName = User.globalUserName
 
         val etxtUserName: EditText = findViewById(R.id.textBoxUserName)
         val etxtUserBirthday: EditText = findViewById(R.id.textBoxUserBirthday)
@@ -88,12 +87,21 @@ class UserChangeAccountInfo : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        client.close(WsClient.NORMAL_CLOSURE)
+    }
 }
 
 class ChangeUserInfoWsClient(private val activity: Activity, uri: URI) : WsClient(uri){
 
     private val errorDisplay: TextView by lazy {
         activity.findViewById(R.id.errorDisplay)
+    }
+
+    private val etxtUserName: EditText by lazy {
+        activity.findViewById(R.id.textBoxUserName)
     }
 
     override fun onMessage(message: String?) {
@@ -108,12 +116,12 @@ class ChangeUserInfoWsClient(private val activity: Activity, uri: URI) : WsClien
 
         if(resId == UserChangeAccountInfo.changeUserInfoId){
             if(status == "success"){
+                User.globalUserName = etxtUserName.text.toString()
                 val intent = Intent(activity, ShowResult::class.java)
-                intent.putExtra("token", UserChangeAccountInfo.token)
-                intent.putExtra("userName", UserChangeAccountInfo.userName)
                 intent.putExtra("message", "アカウント情報を変更しました")
                 intent.putExtra("transitionBtnMessage", "ホームへ")
                 intent.putExtra("isBeforeLogin", false)
+                this.close(NORMAL_CLOSURE)
                 activity.startActivity(intent)
 
             }else if(status == "error"){
