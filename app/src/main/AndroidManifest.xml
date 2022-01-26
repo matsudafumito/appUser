@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.User">
         <activity
+            android:name=".UserShowEvaluationDetail"
+            android:exported="false" />
+        <activity
             android:name=".ConfirmDeleteReservation"
             android:exported="false" />
         <activity

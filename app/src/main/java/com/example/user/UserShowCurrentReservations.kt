@@ -73,6 +73,7 @@ class ReservationWsClient(private val activity: Activity,
             Log.i(javaClass.simpleName, "send failed with reason $ex")
             activity.runOnUiThread {
                 errorDisplay.text = "予約情報を取得できません"
+                errorDisplay.visibility = View.VISIBLE
             }
         }
     }
