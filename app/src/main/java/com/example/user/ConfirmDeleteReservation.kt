@@ -58,6 +58,11 @@ class ConfirmDeleteReservation : AppCompatActivity() {
         super.onRestart()
         client.reconnect()
     }
+    
+    override fun onBackPressed() {
+        super.onBackPressed()
+        client.close(WsClient.NORMAL_CLOSURE)
+    }
 }
 
 

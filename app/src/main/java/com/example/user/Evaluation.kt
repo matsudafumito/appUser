@@ -22,7 +22,7 @@ class EvaluationListAdapter(val context: Context, val evaluationList: MutableLis
         val evaluation = evaluationList[position]
 
         restaurantName.text = evaluation.restaurantName
-        evaluationGrade.text = evaluation.evaluationGrade.toString()
+        evaluationGrade.text = "評価: ${evaluation.evaluationGrade.toString()}"
 
         buttonToDetail.setOnClickListener {
             val intent = Intent(context, UserShowEvaluationDetail::class.java)

@@ -20,7 +20,7 @@ class UserShowCurrentEvaluations : AppCompatActivity() {
     }
 
     private val uri = WsClient.serverRemote
-    private val client = EvaluationWsClient(this, uri)
+    private var client = EvaluationWsClient(this, uri)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,12 +33,18 @@ class UserShowCurrentEvaluations : AppCompatActivity() {
         val user_id = User.globalUserId
         Log.i(javaClass.simpleName, "token: $token")
         Log.i(javaClass.simpleName, "user_id: $user_id")
+        client = EvaluationWsClient(this, uri)
         client.connect()
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
         client.close(WsClient.NORMAL_CLOSURE)
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        client.reconnect()
     }
 
 }

@@ -23,8 +23,11 @@
         <entry key="..\:/Users/mt106/AndroidStudioProjects/appUser/app/src/main/res/layout/activity_user_change_account_info.xml" value="0.1580547112462006" />
         <entry key="..\:/Users/mt106/AndroidStudioProjects/appUser/app/src/main/res/layout/activity_user_confirm_edit_evaluation.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/mt106/AndroidStudioProjects/appUser/app/src/main/res/layout/activity_user_edit_evaluation.xml" value="0.22" />
+        <entry key="..\:/Users/mt106/AndroidStudioProjects/appUser/app/src/main/res/layout/activity_user_show_current_evaluations.xml" value="0.11775362318840579" />
         <entry key="..\:/Users/mt106/AndroidStudioProjects/appUser/app/src/main/res/layout/activity_user_show_evaluation_detail.xml" value="0.21331521739130435" />
         <entry key="..\:/Users/mt106/AndroidStudioProjects/appUser/app/src/main/res/layout/activity_user_show_reservation_detail.xml" value="0.21331521739130435" />
+        <entry key="..\:/Users/mt106/AndroidStudioProjects/appUser/app/src/main/res/layout/item_user_evaluation.xml" value="0.5" />
+        <entry key="..\:/Users/mt106/AndroidStudioProjects/appUser/app/src/main/res/layout/item_user_reservation.xml" value="0.11775362318840579" />
       </map>
     </option>
   </component>
