@@ -109,7 +109,8 @@
             android:paddingTop="3dp"
             android:textColor="#444444"
             android:textSize="15dp"
-            android:maxLength="300"/>
+            android:maxLength="1000"
+            android:gravity="top|left"/>
 
         <Button
             android:id="@+id/buttonEdit"
