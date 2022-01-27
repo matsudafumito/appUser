@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff00"
-    tools:context=".UserShowReservationDetail">
-
+    tools:context=".UserConfirmEditEvaluation">
 
     <TextView
         android:id="@+id/textTitle"
@@ -15,25 +14,10 @@
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
-        android:text="予約詳細"
+        android:text="食べログ編集確認"
         android:textColor="#444444"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <Button
-        android:id="@+id/buttonDeleteReservation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="45dp"
-        android:layout_marginRight="45dp"
-        android:backgroundTint="#ff0000"
-        android:text="予約削除"
-        android:textColor="#ffffff"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
@@ -47,19 +31,27 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/guideText"
+            android:layout_width="match_parent"
+            android:layout_height="23dp"
+            android:text=""
+            android:textColor="#ff0000"
+            android:visibility="invisible" />
+
+        <TextView
             android:id="@+id/errorDisplay"
             android:layout_width="match_parent"
             android:layout_height="23dp"
-            android:layout_marginTop="50dp"
             android:text="アカウント情報が取得できませんでした"
             android:textColor="#ff0000"
             android:visibility="invisible" />
+
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:layout_marginTop="20dp"
-            android:text="予約した店舗"
+            android:text="店舗"
             android:textColor="#444444" />
 
         <TextView
@@ -76,11 +68,11 @@
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:layout_marginTop="20dp"
-            android:text="予約時間(開始)"
+            android:text="評価"
             android:textColor="#444444" />
 
         <TextView
-            android:id="@+id/textBoxTimeStart"
+            android:id="@+id/textBoxEvaluationGrade"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:background="#efefef"
@@ -93,35 +85,32 @@
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:layout_marginTop="20dp"
-            android:text="予約時間(終了)"
+            android:text="コメント"
             android:textColor="#444444" />
 
         <TextView
-            android:id="@+id/textBoxTimeEnd"
+            android:id="@+id/textBoxComment"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="300dp"
             android:background="#efefef"
             android:backgroundTint="#efefef"
             android:paddingTop="3dp"
             android:textColor="#444444"
             android:textSize="15dp" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
+
+        <Button
+            android:id="@+id/buttonConfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="確認"
             android:layout_marginTop="20dp"
-            android:text="予約した人数"
-            android:textColor="#444444" />
-
-        <TextView
-            android:id="@+id/textBoxNumPeople"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:background="#efefef"
-            android:backgroundTint="#efefef"
-            android:paddingTop="3dp"
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp"
             android:textColor="#444444"
-            android:textSize="15dp" />
+            android:backgroundTint="#efefef"/>
     </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
