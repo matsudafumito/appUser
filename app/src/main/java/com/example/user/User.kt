@@ -108,11 +108,18 @@ class User : AppCompatActivity() {
         }
 
         buttonToSetting.setOnClickListener {
-            val intent = Intent(this@User, UserShowAccountInfo::class.java)
-            intent.putExtra("userName", User.globalUserName)
-            intent.putExtra("token", User.globalToken)
-            client.close(WsClient.NORMAL_CLOSURE)
-            startActivity(intent)
+            if(client.isUserInfoArrived()){
+                this.fetchClientInfo(client)
+                val intent = Intent(this@User, UserShowAccountInfo::class.java)
+                intent.putExtra("userName", User.globalUserName)
+                intent.putExtra("token", User.globalToken)
+                intent.putExtra("birthday", this.birthday)
+                intent.putExtra("gender", this.gender)
+                intent.putExtra("email", this.email_addr)
+                intent.putExtra("address", this.address)
+                client.close(WsClient.NORMAL_CLOSURE)
+                startActivity(intent)
+            }
         }
 
         buttonLogout.setOnClickListener {
