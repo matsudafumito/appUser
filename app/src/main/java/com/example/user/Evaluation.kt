@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.TextView
-import androidx.core.os.persistableBundleOf
 
 class Evaluation(val evaluationId: Int, val restaurantId: Int, val restaurantName: String,
                  val evaluationGrade: Int, val evaluationComment: String)

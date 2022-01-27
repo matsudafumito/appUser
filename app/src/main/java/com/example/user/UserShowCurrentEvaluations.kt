@@ -34,6 +34,7 @@ class UserShowCurrentEvaluations : AppCompatActivity() {
         var client = EvaluationWsClient(this, uri)
         client.connect()
     }
+
 }
 
 class EvaluationWsClient(private val activity: Activity, uri: URI) : WsClient(uri){
