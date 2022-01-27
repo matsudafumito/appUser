@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff00"
-    tools:context=".UserEditEvaluation">
-
+    tools:context=".UserConfirmEditEvaluation">
 
     <TextView
         android:id="@+id/textTitle"
@@ -15,25 +14,10 @@
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
-        android:text="食べログ編集"
+        android:text="食べログ編集確認"
         android:textColor="#444444"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <Button
-        android:id="@+id/buttonDelete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="45dp"
-        android:layout_marginRight="45dp"
-        android:backgroundTint="#ff0000"
-        android:text="食べログ削除"
-        android:textColor="#ffffff"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
@@ -47,10 +31,17 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/guideText"
+            android:layout_width="match_parent"
+            android:layout_height="23dp"
+            android:text=""
+            android:textColor="#ff0000"
+            android:visibility="invisible" />
+
+        <TextView
             android:id="@+id/errorDisplay"
             android:layout_width="match_parent"
             android:layout_height="23dp"
-            android:layout_marginTop="10dp"
             android:text="アカウント情報が取得できませんでした"
             android:textColor="#ff0000"
             android:visibility="invisible" />
@@ -80,7 +71,7 @@
             android:text="評価"
             android:textColor="#444444" />
 
-        <EditText
+        <TextView
             android:id="@+id/textBoxEvaluationGrade"
             android:layout_width="match_parent"
             android:layout_height="30dp"
@@ -88,10 +79,7 @@
             android:backgroundTint="#efefef"
             android:paddingTop="3dp"
             android:textColor="#444444"
-            android:textSize="15dp"
-            android:inputType="number"
-            android:digits="12345"
-            android:maxLength="1"/>
+            android:textSize="15dp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -100,7 +88,7 @@
             android:text="コメント"
             android:textColor="#444444" />
 
-        <EditText
+        <TextView
             android:id="@+id/textBoxComment"
             android:layout_width="match_parent"
             android:layout_height="300dp"
@@ -108,20 +96,21 @@
             android:backgroundTint="#efefef"
             android:paddingTop="3dp"
             android:textColor="#444444"
-            android:textSize="15dp"
-            android:maxLength="300"/>
+            android:textSize="15dp" />
+
 
         <Button
-            android:id="@+id/buttonEdit"
+            android:id="@+id/buttonConfirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="編集"
+            android:text="確認"
             android:layout_marginTop="20dp"
             android:paddingLeft="50dp"
             android:paddingRight="50dp"
             android:textColor="#444444"
             android:backgroundTint="#efefef"/>
     </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

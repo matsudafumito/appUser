@@ -19,6 +19,9 @@ class UserShowCurrentEvaluations : AppCompatActivity() {
         const val getRestaurantInfoId = 11
     }
 
+    private val uri = WsClient.serverRemote
+    private val client = EvaluationWsClient(this, uri)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_show_current_evaluations)
@@ -30,9 +33,12 @@ class UserShowCurrentEvaluations : AppCompatActivity() {
         val user_id = User.globalUserId
         Log.i(javaClass.simpleName, "token: $token")
         Log.i(javaClass.simpleName, "user_id: $user_id")
-        val uri = WsClient.serverRemote
-        var client = EvaluationWsClient(this, uri)
         client.connect()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        client.close(WsClient.NORMAL_CLOSURE)
     }
 
 }

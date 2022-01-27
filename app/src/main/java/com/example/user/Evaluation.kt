@@ -30,7 +30,7 @@ class EvaluationListAdapter(val context: Context, val evaluationList: MutableLis
             intent.putExtra("restaurant_id", evaluation.restaurantId)
             intent.putExtra("restaurant_name", evaluation.restaurantName)
             intent.putExtra("evaluation_grade", evaluation.evaluationGrade)
-            intent.putExtra("evaluation_commment", evaluation.evaluationComment)
+            intent.putExtra("evaluation_comment", evaluation.evaluationComment)
             context.startActivity(intent)
         }
 

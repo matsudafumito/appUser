@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.User">
         <activity
+            android:name=".UserConfirmEditEvaluation"
+            android:exported="false" />
+        <activity
             android:name=".UserEditEvaluation"
             android:exported="false" />
         <activity
