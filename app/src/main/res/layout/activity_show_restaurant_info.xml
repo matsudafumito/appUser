@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFF00">
+
+    <TextView
+        android:id="@+id/show_restaurant_info_name"
+        android:layout_width="389dp"
+        android:layout_height="77dp"
+        android:background="#FFFFFF"
+        android:text="店名"
+        android:textSize="60sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/show_restaurant_info_address"
+        android:layout_width="389dp"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:text="住所"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/show_restaurant_info_name" />
+
+    <TextView
+        android:id="@+id/show_restaurant_info_email_address"
+        android:layout_width="389dp"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:text="メールアドレス"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/show_restaurant_info_address" />
+
+    <TextView
+        android:id="@+id/show_restaurant_info_time_close"
+        android:layout_width="198dp"
+        android:layout_height="30dp"
+        android:background="#FFFFFF"
+        android:text="終業時間"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/show_restaurant_info_email_address" />
+
+    <TextView
+        android:id="@+id/show_restaurant_info_time_open"
+        android:layout_width="199dp"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:text="始業時間"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/show_restaurant_info_time_close"
+        app:layout_constraintHorizontal_bias="0.533"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/show_restaurant_info_email_address" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
