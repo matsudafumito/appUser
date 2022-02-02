@@ -5,7 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import org.json.JSONObject
@@ -13,12 +15,10 @@ import java.lang.Exception
 import java.net.URI
 
 class ShowSearchStoreResult : AppCompatActivity() {
-    //サーバとの通信用の呪文？
-    private val uri = WsClient.serverRemote
-    private var client = ShowSearchStoreWsClient(this, uri)
 
     companion object{
         const val getUserInfoId = 17000001
+        var result =  JSONObject()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,83 +30,50 @@ class ShowSearchStoreResult : AppCompatActivity() {
         super.onResume()
 
         //データがおかしいと即死するので注意、いい書き方募集中
-        val result = JSONObject(intent.getStringExtra("result"))
-        val store_list = result.getJSONArray("restaurants")
+        result = JSONObject(intent.getStringExtra("result"))
+        val store_list = ShowSearchStoreResult.result.getJSONArray("restaurants")
+        var name = mutableListOf<String>()
 
-        //受け取った検索結果を元に検索結果画面を生成
-        for (i in 1..store_list.length()) {
-            //店舗ごとのレイアウトの読み込み
-            val storelist_layout = layoutInflater.inflate(R.layout.activity_show_search_store_result_sub, null)
-
-            //店舗名表示
-            val store_name = storelist_layout.findViewById<TextView>(R.id.show_search_store_result_name)
-            store_name.text = store_list.getJSONObject(i).getString("restaurant_name")
-
-            //ボタンの設定
-            val more_detail = storelist_layout.findViewById<Button>(R.id.show_search_store_result_more_detail)
-            more_detail.setOnClickListener{
-                val searchTarget: String = store_name.toString()
-
-                //searchTargetを検索するためのリクエストメッセージ定義
-                val token = User.globalToken
-
-                val getInfoParams = JSONObject()
-                getInfoParams.put("searchBy", "restaurant_name")
-                getInfoParams.put("restaurant_name", searchTarget)
-                getInfoParams.put("token", token)
-                val getInfoRequest = client.createJsonrpcReq("getInfo/restaurant/basic",
-                    getUserInfoId, getInfoParams)
-
-                //リクエストメッセージの送信
-                try {
-                    if (client.isClosed) {
-                        client.reconnect()
-                    }
-                    client.send(getInfoRequest.toString())
-                } catch (ex: Exception) {
-                    Log.i(javaClass.simpleName, "send failed")
-                    Log.i(javaClass.simpleName, "$ex")
-                    /*
-                     * errorDisplay.text = "インターネットに接続されていません"
-                     * errorDisplay.visibility = View.VISIBLE
-                     */
-                }
+        if (store_list.length() != 0) {
+            for (index in 0 until store_list.length()) {
+                val store: JSONObject = store_list.getJSONObject(index)
+                name.add(store.getString("restaurant_name"))
             }
         }
-    }
-}
 
-class ShowSearchStoreWsClient(private val activity: Activity, uri: URI) : WsClient(uri){
+        val listView = findViewById<ListView>(R.id.listView)
 
-    private val errorDisplay: TextView by lazy {
-        activity.findViewById(R.id.errorDisplay)
-    }
+        //ArrayAdapter
+        val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, name)
 
-    override fun onMessage(message: String?) {
-        super.onMessage(message)
-        Log.i(javaClass.simpleName, "msg arrived")
-        Log.i(javaClass.simpleName, "$message")
+        listView.adapter = adapter
 
-        val wholeMsg = JSONObject("$message")
-        val resId: Int = wholeMsg.getInt("id")
-        val result: JSONObject = wholeMsg.getJSONObject("result")
-        val status: String = result.getString("status")
+        listView.setOnItemClickListener { parent, view, position, id ->
+            val store: JSONObject = store_list.getJSONObject(position)
+            val intent = Intent(this@ShowSearchStoreResult, ShowSerachStoreResult::class.java)
 
-        if(resId == ShowSearchStoreResult.getUserInfoId){
-            if(status == "success"){
-                val intent = Intent(activity, ShowSearchStoreResult :: class.java)
-                //データベースの検索結果を遷移先に送る
-                intent.putExtra("result", result.toString())
-
-                //店舗基本情報表示へ遷移
-                activity.startActivity(intent)
-
-            }else if(status == "error"){
-                activity.runOnUiThread{
-                    errorDisplay.text = result.getString("reason")
-                    errorDisplay.visibility = View.VISIBLE
-                }
-            }
+            intent.putExtra(
+                "restaurantId",
+                store_list.getJSONObject(position).getInt("restaurant_id")
+            )
+            intent.putExtra(
+                "restaurantName",
+                store_list.getJSONObject(position).getInt("restaurant_name")
+            )
+            intent.putExtra(
+                "EmailAddress",
+                store_list.getJSONObject(position).getString("email_address")
+            )
+            intent.putExtra("Address", store_list.getJSONObject(position).getString("address"))
+            intent.putExtra("timeOpen", store_list.getJSONObject(position).getString("time_open"))
+            intent.putExtra("timeClose", store_list.getJSONObject(position).getString("time_close"))
+            intent.putExtra("features", store_list.getJSONObject(position).getString("features"))
+            intent.putExtra(
+                "holidays",
+                store_list.getJSONObject(position).getJSONArray("holidays").toString()
+            )
+            intent.putExtra("token", User.globalToken)
+            startActivity(intent)
         }
     }
 }
