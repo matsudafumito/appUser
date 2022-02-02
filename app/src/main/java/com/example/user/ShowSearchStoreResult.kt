@@ -15,7 +15,7 @@ import java.net.URI
 class ShowSearchStoreResult : AppCompatActivity() {
     //サーバとの通信用の呪文？
     private val uri = WsClient.serverRemote
-    private var client = WsClient(uri)
+    private var client = ShowSearchStoreWsClient(this, uri)
 
     companion object{
         const val getUserInfoId = 17000001

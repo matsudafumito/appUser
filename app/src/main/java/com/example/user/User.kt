@@ -100,11 +100,18 @@ class User : AppCompatActivity() {
         }
 
         buttonToHome.setOnClickListener {
-            //doNothing
+            //do nothing
         }
 
         buttonToSearchRestaurant.setOnClickListener {
-            TODO("not yet implemented")
+            if(client.isUserInfoArrived()){
+                this.fetchClientInfo(client)
+                val intent = Intent(this@User, SearchStore::class.java)
+                startActivity(intent)
+                client.close(WsClient.NORMAL_CLOSURE)
+            }else{
+                Log.i(javaClass.simpleName, "data has not arrived yet")
+            }
         }
 
         buttonToSetting.setOnClickListener {

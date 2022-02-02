@@ -13,6 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.User">
         <activity
+            android:name=".SearchStore"
+            android:exported="false" />
+        <activity
+            android:name=".ShowSearchStoreResult"
+            android:exported="false" />
+        <activity
             android:name=".UserConfirmEditEvaluation"
             android:exported="false" />
         <activity

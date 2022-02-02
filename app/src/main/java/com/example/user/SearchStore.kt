@@ -20,7 +20,7 @@ import java.net.URI
 class SearchStore : AppCompatActivity() {
     //サーバとの通信用の呪文？
     private val uri = WsClient.serverRemote
-    private var client = WsClient(uri)
+    private var client = SearchStoreWsClient(this, uri)
 
     companion object{
         const val getUserInfoId = 17000000
@@ -35,6 +35,7 @@ class SearchStore : AppCompatActivity() {
     //Activityの開始時(表示時)の処理
     override fun onResume() {
         super.onResume()
+        client.connect()
 
         val errorDisplay: TextView = findViewById(R.id.errorDisplay2)
         val buttonSearchStore = findViewById<Button>(R.id.buttonSearchStore)

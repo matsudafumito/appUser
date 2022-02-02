@@ -7,40 +7,58 @@
     android:background="#FFFF00">
 
     <TextView
-        android:id="@+id/errorDisplay2"
-        android:layout_width="match_parent"
-        android:layout_height="23dp"
-        android:textColor="#ff0000"
-        android:visibility="invisible" />
-
-    <EditText
-        android:id="@+id/textSearchStore"
-        android:layout_width="316dp"
-        android:layout_height="46dp"
-        android:background="#FFFFFF"
-        android:ems="10"
-        android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="47dp"
-        tools:layout_editor_absoluteY="207dp" />
-
-    <Button
-        android:id="@+id/buttonSearchStore"
-        android:layout_width="145dp"
-        android:layout_height="63dp"
-        android:text="検索"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        app:backgroundTint="#FFFFFF"
-        tools:layout_editor_absoluteX="133dp"
-        tools:layout_editor_absoluteY="497dp" />
-
-    <TextView
         android:id="@+id/textView3"
-        android:layout_width="171dp"
-        android:layout_height="54dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:text="店舗検索"
         android:textColor="#000000"
         android:textSize="34sp"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="153dp" />
+
+    <LinearLayout
+        android:layout_width="322dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="92dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/errorDisplay2"
+            android:layout_width="match_parent"
+            android:layout_height="23dp"
+            android:layout_marginTop="100dp"
+            android:textColor="#ff0000"
+            android:visibility="invisible" />
+
+        <EditText
+            android:id="@+id/textSearchStore"
+            android:layout_width="316dp"
+            android:layout_height="46dp"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/black"
+            android:background="#FFFFFF"
+            android:ems="10"
+            android:inputType="textPersonName"
+            tools:layout_editor_absoluteX="47dp"
+            tools:layout_editor_absoluteY="207dp" />
+
+        <Button
+            android:id="@+id/buttonSearchStore"
+            android:layout_width="145dp"
+            android:layout_height="63dp"
+            android:text="検索"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:layout_marginTop="50dp"
+            android:layout_gravity="center"
+            app:backgroundTint="#FFFFFF"
+            tools:layout_editor_absoluteX="133dp"
+            tools:layout_editor_absoluteY="497dp" />
+
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
