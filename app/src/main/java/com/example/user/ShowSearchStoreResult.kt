@@ -50,7 +50,7 @@ class ShowSearchStoreResult : AppCompatActivity() {
 
         listView.setOnItemClickListener { parent, view, position, id ->
             val store: JSONObject = store_list.getJSONObject(position)
-            val intent = Intent(this@ShowSearchStoreResult, ShowSerachStoreResult::class.java)
+            val intent = Intent(this@ShowSearchStoreResult, ShowRestaurantInfo::class.java)
 
             intent.putExtra(
                 "restaurantId",

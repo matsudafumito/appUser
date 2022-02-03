@@ -40,25 +40,60 @@
         app:layout_constraintTop_toBottomOf="@+id/show_restaurant_info_address" />
 
     <TextView
+        android:id="@+id/show_restaurant_info_features"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:text="特徴キーワード"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/show_restaurant_info_time_open" />
+
+    <TextView
         android:id="@+id/show_restaurant_info_time_close"
-        android:layout_width="198dp"
-        android:layout_height="30dp"
+        android:layout_width="200dp"
+        android:layout_height="31dp"
+        android:layout_marginBottom="1dp"
         android:background="#FFFFFF"
         android:text="終業時間"
         android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/show_restaurant_info_features"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/show_restaurant_info_email_address" />
 
     <TextView
         android:id="@+id/show_restaurant_info_time_open"
-        android:layout_width="199dp"
-        android:layout_height="wrap_content"
+        android:layout_width="193dp"
+        android:layout_height="32dp"
         android:background="#FFFFFF"
         android:text="始業時間"
         android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/show_restaurant_info_time_close"
-        app:layout_constraintHorizontal_bias="0.533"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/show_restaurant_info_email_address" />
+
+    <TextView
+        android:id="@+id/show_restaurant_info_holidays"
+        android:layout_width="0dp"
+        android:layout_height="58dp"
+        android:background="#FFFFFF"
+        android:text="休業日一覧"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/show_restaurant_info_features" />
+
+    <Button
+        android:id="@+id/show_restaurant_info_button_reservation"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:backgroundTint="#efefef"
+        android:text="予約画面へ"
+        android:textColor="#555555"
+        tools:layout_editor_absoluteX="96dp"
+        tools:layout_editor_absoluteY="624dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
