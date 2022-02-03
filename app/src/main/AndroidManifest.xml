@@ -13,6 +13,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.User">
         <activity
+            android:name=".ReviewRegister"
+            android:exported="false" />
+        <activity
+            android:name=".ReserveAnnouncement"
+            android:exported="false" />
+        <activity
+            android:name=".ReviewAnnouncement"
+            android:exported="false" />
+        <activity
             android:name=".SearchStore"
             android:exported="false" />
         <activity
